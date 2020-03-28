@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HomePage from './views/Home.vue'
+import IntroPage from './views/IntroPage.vue'
 import LoginPage from './views/Login.vue'
 import RegisterPage from './views/Register.vue'
 import EditPage from './views/Edit.vue'
 import OverviewPage from './views/Overview.vue'
+import HomePage from './views/Home.vue'
 import CollectionPage from './views/Collection.vue'
 import EditCollection from './views/EditCollection.vue'
 import EditTextBundle from './views/EditTextBundle.vue'
@@ -78,6 +79,12 @@ export const router = new Router({
       name: 'home',
       component: HomePage
     },
+
+    {
+      path: '/intro',
+      name: 'intro',
+      component: IntroPage
+    },
     {
       path: '/about',
       name: 'about',
@@ -111,7 +118,7 @@ export const router = new Router({
 
 router.beforeEach((to, from, next) => {
   // redirect to login page if not logged in and trying to access a restricted page
-  const publicPages = ['/login', '/register'];
+  const publicPages = ['/login', '/register','/intro'];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('user');
 

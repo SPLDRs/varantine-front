@@ -18,8 +18,8 @@
 			<p id="p1">Connect with your special loved one; Overlap two faraway houses</p>
 			<p id="p2">Get flipped when you are at the "same" place at home</p> 
 			<div id="introbuttons">
-				<a href=""><div id="signup">Sign Up</div></a>
-				<a href=""><div id="signin">Sign In</div></a>
+				<a to="/login"><div id="signup">Log In</div></a>
+				<a to="/register"><div id="signin">Register</div></a>
 				<div class="clearfloat"></div>
 			</div>
 		</div>

@@ -44,13 +44,13 @@
 import {collectionService} from '../services/collection.service';
 import * as axios from 'axios';
 import {apiUrl} from '../helpers/api-config'
-import BundlePreview from '../components/BundlePreview.vue'
+//import BundlePreview from '../components/BundlePreview.vue'
 
 
 export default {
     name: 'CollectionEdit',
     components: {
-        BundlePreview
+        //BundlePreview
     },
     props: {
         name: String,

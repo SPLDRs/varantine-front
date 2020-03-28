@@ -20,7 +20,7 @@ const actions = {
             .then(
                 user => {
                     commit('loginSuccess', user);
-                    router.push('/');
+                    router.push('/intro');
                 },
                 error => {
                     commit('loginFailure', error);
