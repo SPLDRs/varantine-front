@@ -90,18 +90,18 @@ const actions = {
                 }
             );
     },
-    addCollection({ dispatch, commit }, {id, collection}) {
+    addHouse({ dispatch, commit }, {id, house}) {
         commit('updateRequest');
         //console.log('account module');
-        return userService.addCollection(id, collection)
+        return userService.addHouse(id, house)
             .then(
-                collections => {
+                houses => {
                     commit('updateSuccess');
                     //router.push('/login');
-                    dispatch('alert/success', 'Add collection successful.', { root: true });
-                    dispatch('collections/getAll', null, { root: true });
+                    dispatch('alert/success', 'Add house successful.', { root: true });
+                    dispatch('houses/getAll', null, { root: true });
                     return new Promise(function(resolve, reject) {
-                        resolve(collections);
+                        resolve(houses);
                     });
                 },
                 error => {
@@ -110,18 +110,18 @@ const actions = {
                 }
             );
     },
-    deleteCollection({ dispatch, commit }, collectionId) {
+    deleteHouse({ dispatch, commit }, houseId) {
         commit('updateRequest');
         //console.log('account module');
-        return userService.deleteCollection(collectionId)
+        return userService.deleteHouse(houseId)
             .then(
-                collections => {
+                houses => {
                     commit('updateSuccess');
                     //router.push('/login');
-                    dispatch('alert/success', 'Delete collection successful.', { root: true });
-                    dispatch('collections/getAll', null, { root: true });
+                    dispatch('alert/success', 'Delete house successful.', { root: true });
+                    dispatch('houses/getAll', null, { root: true });
                     return new Promise(function(resolve, reject) {
-                        resolve(collections);
+                        resolve(houses);
                     });
                 },
                 error => {
@@ -130,36 +130,20 @@ const actions = {
                 }
             );
     },
-    addBundle({ dispatch, commit }, {id, type, bundle}) {
+
+    setPrimary({ dispatch, commit }, houseId){
         commit('updateRequest');
         //console.log('account module');
-        return userService.addBundle(id, type, bundle)
+        const userId = state.user._id;
+        return userService.setPrimary(userId, houseId)
             .then(
-                bundles => {
+                houses => {
                     commit('updateSuccess');
                     //router.push('/login');
-                    dispatch('alert/success', `Add ${type} bundle successful.`, { root: true });
+                    dispatch('alert/success', 'Set Primary Successful.', { root: true });
+                    dispatch('houses/getAll', null, { root: true });
                     return new Promise(function(resolve, reject) {
-                        resolve(bundles);
-                    });
-                },
-                error => {
-                    commit('updateFailure', error);
-                    dispatch('alert/error', error, { root: true });
-                }
-            );
-    },
-    deleteBundle({ dispatch, commit }, {type, id}) {
-        commit('updateRequest');
-        //console.log('account module');
-        return userService.deleteBundle(type, id)
-            .then(
-                bundles => {
-                    commit('updateSuccess');
-                    //router.push('/login');
-                    dispatch('alert/success', 'Delete bundle successful.', { root: true });
-                    return new Promise(function(resolve, reject) {
-                        resolve(bundles);
+                        resolve(houses);
                     });
                 },
                 error => {
