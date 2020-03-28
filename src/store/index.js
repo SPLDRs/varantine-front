@@ -1,15 +1,20 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from 'vue';
+import Vuex from 'vuex';
 
-Vue.use(Vuex)
+import { alert } from './alert.module';
+import { account } from './account.module';
+import { users } from './users.module';
+import { collections } from './collections.module';
+import { bundles } from './bundles.module';
 
-export default new Vuex.Store({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
-  modules: {
-  }
-})
+Vue.use(Vuex);
+
+export const store = new Vuex.Store({
+    modules: {
+        alert,
+        account,
+        users,
+        collections,
+        bundles
+    }
+});
