@@ -74,71 +74,68 @@ export default {
 .<style lang="css">
 		body {
 			margin: 0;
-            padding:0;
-            height:100%;
-            width:100%;
+      padding:0;
+      height:100%;
+      width:100%;
 			background-color:pink;
 		}	
 		#navbar {
 			background-color:pink;
 			width: 100%;
 			height: 60px;
-            position: fixed;
-            top: 0;
-        
+      position: fixed;
+      top: 0;
 		}
 		#nav {
-            height: 60px;
-            width: 100%;
-            position: fixed;
-            left: 10px;
-            top: 0;
+      height: 60px;
+      width: 100%;
+      position: fixed;
+      left: 10px;
+      top: 0;
 		}
-        #overviewbutton {
-            height: 60px;
-            width: 100px;
-            float: left;
-            color: black;
-            text-decoration: none;
-            line-height: 60px;
-
-        }
-        #teambutton {
-            height: 60px;
-            width: 100px;
-            float: left;
-            color: black;
-            text-decoration: none;
-            line-height: 60px;
-        }
-        #app {
-        margin: 0;
-        padding: 0;
-        }
+    #overviewbutton {
+      height: 60px;
+      width: 100px;
+      float: left;
+      color: black;
+      text-decoration: none;
+      line-height: 60px;
+    }
+    #teambutton {
+      height: 60px;
+      width: 100px;
+      float: left;
+      color: black;
+      text-decoration: none;
+      line-height: 60px;
+    }
+    #app {
+      margin: 0;
+      padding: 0;
+    }
 		#intro {
 			height: 700px;
 			text-align: left;
 			padding-top: 110px;
 			background-image: url('../assets/img/lovehouse.jpg');
-          background-size: 1400px;
-          background-position: center;
-          background-repeat:  no-repeat;			
-            /* margin-top: -30px; */
-            width: 100%;
-            margin-top: -60px;
+      background-size: 1400px;
+      background-position: center;
+      background-repeat:  no-repeat;			
+      width: 100%;
+      margin-top: -60px;
 		}
 		h1 {
 			margin-top: 0px;
 			font-size: 60pt;
-            font-family: 'Gotu', sans-serif;
-            text-align: center;
+      font-family: 'Gotu', sans-serif;
+      text-align: center;
 		}
 		#introbuttons {
 			width: 500px;
 			height:50px;
 			margin-top: 30px;
 			margin-left: auto;
-            margin-right: auto;
+      margin-right: auto;
       font-family: 'Gotu', sans-serif;
 		}
 		#signup {
@@ -166,8 +163,8 @@ export default {
 			clear: both;
 		}
     .p0 {
-        margin-top: 10px;
-        font-size: 10pt;
+      margin-top: 0px;
+      font-size: 15pt;
       font-family: 'Gotu', sans-serif;
       text-align: left;
       margin-bottom: 0px;
@@ -186,249 +183,306 @@ export default {
       text-align: center;
       margin-bottom: 0px;
     }
-
 		#overview {
 			height: 550px;
 			text-align: left;
 			padding-top: 70px;
-			background-color: pink;
+			background-color: lightskyblue;
       background-size: 1400px;
       background-position: center;
       background-repeat:  repeat-y;
       margin-bottom: 0px;
-            width: 80%;
-            padding-left: 10%;
-            padding-right: 10%;
-		}
+      width: 80%;
+      padding-left: 10%;
+      padding-right: 10%;
+      }
     .p3 {
-      font-size: 10pt;
+      font-size: 13pt;
       margin-top: 0px;
       font-family: 'Gotu', sans-serif;
       text-align: left;
       margin-bottom: 0px;
-    }
-    .p4 {
-      font-size: 10pt;
-      margin-top: 0px;
-      font-family: 'Gotu', sans-serif;
-      text-align: left;
-      margin-bottom: 0px;
-    }
-    #goal{
+      }
+    #goal {
       width: 600px;
 			height: 200px;
 			float: left;
-    }
-    #step{
+      }
+    #step {
       width: 400px;
 			height: 200px;
       margin-left:60px;
       float: left;
-    }
-    .clearfloat {
-			clear: both;
-		}
+      }
 		#team {
 			height: 600px;
 			text-align: left;
 			padding-top: 70px;
       background-size: 1400px;
       background-position: center;
-			background-color: lightskyblue;
+			background-color: pink;
 			padding-left: 0px;
       margin-bottom: 0px;
       margin-left:0px;
       width: 100%
-		}
-
+      }
     .p5 {
       font-size: 15pt;
       margin-top: 0px;
       font-family: 'Gotu', sans-serif;
       text-align: center;
-    }
-    .clearfloat {
-			clear: both;
-		}
-    #m{
+      }
+    #m {
       margin-top: 0px;
       margin-left: 0px;
       padding-left: 0;
       padding-right: 0;
- 
-    }
-    #m1{
+      }
+    #m1 {
       float: left;
       width: 250px;
       margin-left: 10px;
-    }
-    #m2{
+      }
+    #m2 {
       float: left;
       width: 250px;
       margin-left: 10px;
-    }
-    #m3{
+      }
+    #m3 {
       float: left;
       width: 250px;
       margin-left: 10px;
-    }
-    #m4{
+      }
+    #m4 {
       float: left;
       width: 250px;
       margin-left: 10px;
-    }
-    #m5{
+      }
+    #m5 {
       float: left;
       width: 250px;
       margin-left: 10px;
-    }
-    #pic1{
+      }
+    #pic1 {
       float: left;
       width: 250px;
-
-    }
-    #pic2{
+      }
+    #pic2 {
       float: left;
       width: 250px;
-    }
-    #pic3{
+      }
+    #pic3 {
       float: left;
       width: 250px;
-
-    }
-    #pic4{
+      }
+    #pic4 {
       float: left;
       width: 250px;
-
-    }
-    #pic5{
+      }
+    #pic5 {
       float: left;
       width: 250px;
-
-    }
-
+      }
     @media (max-width: 991px) {
-
-    }
-    @media (max-width: 575px) {
-		h1 {
-			margin-top: 0px;
-			font-size: 35pt;
-            font-family: 'Gotu', sans-serif;
-		}
-        #p1 {
-      font-size: 15pt;
-      margin-top: 380px;
-      margin-bottom: 0px;
-      font-family: 'Gotu', sans-serif;
-      text-align: center;
-    }
-        #introbuttons {
-            width: 250px;
-            margin-left: auto;
-            margin-right: auto;
-
-        }
-		#signup {
-			width: 100px;
-			height: 50px;
+      #team {
+			height: 900px;
+			text-align: left;
+			padding-top: 70px;
+      background-size: 1400px;
+      background-position: center;
 			background-color: pink;
-			float: left;
-			line-height: 50px;
-			text-decoration: none;
-			color:black;
-      text-align: center;
-		}
-		#signin {
-			width: 100px;
-			height: 50px;
-			background-color:pink;
-			float: left;
-			margin-left: 50px;
-			line-height: 50px;
-			text-decoration: none;
-			color: black;
-      text-align: center;
-		}
-    #m1{
+			padding-left: 0px;
+      margin-bottom: 0px;
+      margin-left:0px;
+      width: 100%;
+      }
+      .p5 {
+        font-size: 15pt;
+        margin-top: 0px;
+        font-family: 'Gotu', sans-serif;
+        text-align: center;
+        }
+      #m {
+        margin-top: 0px;
+        margin-left: 0px;
+        padding-left: 0;
+        padding-right: 0;
+        }
+      #m1 {
+        float: left;
+        width: 250px;
+        margin-left: 10px;
+        }
+      #m2 {
+        float: left;
+        width: 250px;
+        margin-left: 10px;
+        }
+      #m3 {
+        float: left;
+        width: 250px;
+        margin-left: 10px;
+        }
+      #m4{
+        float: left;
+        width: 250px;
+        margin-left: 10px;
+        }
+      #m5 {
+        float: left;
+        width: 250px;
+        margin-left: 10px;
+        }
+      #pic1 {
+        float: left;
+        width: 250px;
+        }
+      #pic2 {
+        float: left;
+        width: 250px;
+        }
+      #pic3 {
+        float: left;
+        width: 250px;
+        }
+      #pic4 {
+        float: left;
+        width: 250px;
+        }
+      #pic5{
+        float: left;
+        width: 250px;
+        }
+      }
+    @media (max-width: 575px) {
+      .p0 {
+        margin-top: 10px;
+        font-size: 15pt;
+        font-family: 'Gotu', sans-serif;
+        text-align: left;
+        margin-bottom: 0px;
+        }
+      .p3 {
+        font-size: 10pt;
+        margin-top: 0px;
+        font-family: 'Gotu', sans-serif;
+        text-align: left;
+        margin-bottom: 0px;
+        }
+      h1 {
+        margin-top: 0px;
+        font-size: 35pt;
+        font-family: 'Gotu', sans-serif;
+        }
+      #p1 {
+        font-size: 15pt;
+        margin-top: 380px;
+        margin-bottom: 0px;
+        font-family: 'Gotu', sans-serif;
+        text-align: center;
+        }
+      #introbuttons {
+        width: 250px;
+        margin-left: auto;
+        margin-right: auto;
+        }
+      #signup {
+        width: 100px;
+        height: 50px;
+        background-color: pink;
+        float: left;
+        line-height: 50px;
+        text-decoration: none;
+        color:black;
+        text-align: center;
+        }
+      #signin {
+        width: 100px;
+        height: 50px;
+        background-color:pink;
+        float: left;
+        margin-left: 50px;
+        line-height: 50px;
+        text-decoration: none;
+        color: black;
+        text-align: center;
+        }
+      #m1 {
         clear: both;
-       width: 250px;
-      margin-left: 0px;
-      height: 300px;
-    }
-    #m2{
-         clear: both;
-      width: 250px;
-      margin-left: 0px;
-      height: 300px;
-    }
-    #m3{
-          clear: both;
-      width: 250px;
-      margin-left: 0px;
-      height: 300px;
-    }
-    #m4{
-          clear: both;
-      width: 250px;
-      margin-left: 0px;
-      height: 300px;
-    }
-    #m5{
-         clear: both;
-      width: 250px;
-      margin-left: 0px;
-      height: 300px;
-    }
-    #pic1{
-              clear: both;
-      width: 250px;
- 
-    }
-    #pic2{
-         clear: both;
-      width: 250px;
-
-    }
-    #pic3{
-           clear: both;
-      width: 250px;
-
-    }
-    #pic4{
-         clear: both;
-      width: 250px;
-    }
-    #pic5{
+        width: 250px;
+        margin-left: 0px;
+        height: 300px;
+        }
+      #m2 {
+        clear: both;
+        width: 250px;
+        margin-left: 0px;
+        height: 300px;
+        }
+      #m3 {
             clear: both;
-      width: 250px;
-    }
-    #team {
-		height: 1660px;
-		text-align: left;
-		padding-top: 70px;
+        width: 250px;
+        margin-left: 0px;
+        height: 300px;
+      }
+      #m4 {
+            clear: both;
+        width: 250px;
+        margin-left: 0px;
+        height: 300px;
+      }
+      #m5 {
+        clear: both;
+        width: 250px;
+        margin-left: 0px;
+        height: 300px;
+        }
+      #pic1 {
+        clear: both;
+        width: 250px;
+        }
+      #pic2 {
+        clear: both;
+        width: 250px;
+        }
+      #pic3 {
+        clear: both;
+        width: 250px;
+        }
+      #pic4{
+        clear: both;
+        width: 250px;
+        }
+      #pic5{
+        clear: both;
+        width: 250px;
+        }
+      #team {
+        height: 1660px;
+        text-align: left;
+        padding-top: 70px;
         background-size: 1400px;
         background-position: center;
-		background-color: lightskyblue;
-		padding-left: 0px;
+        background-color: pink;
+        padding-left: 0px;
         margin-bottom: 0px;
         margin-left: 0px;
         width: 100%;
-		}
-    #m{
-      margin-top: 0px;
-      margin-left: auto;
-      margin-right: auto;
-      padding-left: 0;
-      padding-right: 0;
-      width: 250px;
-      height: 1500;
-    }
-    #goal{
+        }
+      #m{
+        margin-top: 0px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 0;
+        padding-right: 0;
+        width: 250px;
+        height: 1500;
+        }
+      #goal{
         width: 100%;
-    }
-    #step{
+        }
+      #step{
         width: 100%;
-    }
+        }
 }
 </style>
