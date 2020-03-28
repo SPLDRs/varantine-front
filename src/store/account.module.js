@@ -168,6 +168,87 @@ const actions = {
                 }
             );
     },
+
+    initMatch({ dispatch, commit }, {id, BName, BPin}) {
+        commit('updateRequest');
+        //console.log('account module');
+        console.log('payload in account module: '+id+BName+BPin);
+        return userService.initMatch(id, BName, BPin)
+            .then(
+                me => {
+                    commit('updateSuccess');
+                    //router.push('/login');
+                    dispatch('alert/success', `Request to ${BName} sent.`, 
+                        { root: true });
+                    return new Promise(function(resolve, reject) {
+                        resolve(me);
+                    });
+                },
+                error => {
+                    commit('updateFailure', error);
+                    dispatch('alert/error', error, { root: true });
+                }
+            );
+    },
+    terminateExistingMatch({ dispatch, commit }, {id}) {
+        commit('updateRequest');
+        console.log('id in account module: '+id);
+        return userService.terminateExistingMatch(id)
+            .then(
+                me => {
+                    commit('updateSuccess');
+                    //router.push('/login');
+                    dispatch('alert/success', `Terminate my existing match succcessful.`, 
+                        { root: true });
+                    return new Promise(function(resolve, reject) {
+                        resolve(me);
+                    });
+                },
+                error => {
+                    commit('updateFailure', error);
+                    dispatch('alert/error', error, { root: true });
+                }
+            );
+    },
+    acceptRequest({ dispatch, commit }) {
+        const id = state.user._id;
+        return userService.acceptRequest(id)
+            .then(
+                me => {
+                    commit('updateSuccess');
+                    //router.push('/login');
+                    dispatch('alert/success', `Accept request succcessful.`, 
+                        { root: true });
+                    return new Promise(function(resolve, reject) {
+                        resolve(me);
+                    });
+                },
+                error => {
+                    commit('updateFailure', error);
+                    dispatch('alert/error', error, { root: true });
+                }
+            );
+    },
+    declineRequest({ dispatch, commit }) {
+        const id = state.user._id;
+        return userService.declineRequest(id)
+            .then(
+                me => {
+                    commit('updateSuccess');
+                    //router.push('/login');
+                    dispatch('alert/success', `Decline request succcessful.`, 
+                        { root: true });
+                    return new Promise(function(resolve, reject) {
+                        resolve(me);
+                    });
+                },
+                error => {
+                    commit('updateFailure', error);
+                    dispatch('alert/error', error, { root: true });
+                }
+            );
+
+    }
 };
 
 const mutations = {
