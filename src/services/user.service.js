@@ -19,6 +19,10 @@ export const userService = {
     getUsername,
     addBundle,
     deleteBundle,
+    initMatch,
+    terminateExistingMatch,
+    acceptRequest,
+    declineRequest,
     delete: _delete
 };
 
@@ -224,6 +228,45 @@ function deleteBundle(type, bundleId){
         })
 }
 
+function updateHelper(url, payload){
+    var config = {
+        headers: authHeader()
+    }
+    //console.log(formData);
+    return axios.post(url, payload, config)
+        // get data
+        .then(x => x.data)
+        .then(me => {
+            localStorage.setItem('user', JSON.stringify(me));
+            return me;
+        })
+}
+
+function initMatch(id, BName, BPin){
+    const url = `${apiUrl}/users/initMatch`;
+    const payload = {id, BName, BPin};
+    return updateHelper(url, payload);
+}
+
+function terminateExistingMatch(id){
+    const url = `${apiUrl}/users/terminateExistingMatch`;
+    const payload = {id}
+    return updateHelper(url, payload);
+}
+
+function acceptRequest(id){
+    const url = `${apiUrl}/users/acceptRequest`;
+    const payload = {id}
+    return updateHelper(url, payload);
+}
+
+function declineRequest(id){
+    const url = `${apiUrl}/users/declineRequest`;
+    const payload = {id}
+    return updateHelper(url, payload);
+}
+
+
 // prefixed function name with underscore because delete is a reserved word in javascript
 function _delete(id) {
     const requestOptions = {
@@ -234,7 +277,12 @@ function _delete(id) {
     return fetch(`${apiUrl}/users/${id}`, requestOptions).then(handleResponse);
 }
 
+function axios401Guard(error){
+    console.log("handle response i.e. auto logout");
+}
+
 function handleResponse(response) {
+    console.log("handle response i.e. auto logout");
     return response.text().then(text => {
         const data = text && JSON.parse(text);
         if (!response.ok) {

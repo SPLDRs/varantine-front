@@ -6,6 +6,9 @@ import RegisterPage from './views/Register.vue'
 import EditPage from './views/Edit.vue'
 import OverviewPage from './views/Overview.vue'
 import CollectionPage from './views/Collection.vue'
+import InitMatchPage from './views/InitMatch.vue'
+import GeneratePinPage from './views/GeneratePin.vue'
+import ViewRequestPage from './views/ViewRequest.vue'
 import EditCollection from './views/EditCollection.vue'
 import EditTextBundle from './views/EditTextBundle.vue'
 import EditImageBundle from './views/EditImageBundle.vue'
@@ -89,6 +92,9 @@ export const router = new Router({
     { path: '/login', component: LoginPage },
     { path: '/register', component: RegisterPage },
     { path: '/edit', component: EditPage, meta: {scrollToTop: true} },
+    { path: '/initMatch', component: InitMatchPage},
+    { path: '/generatePin', component: GeneratePinPage},
+    { path: '/viewRequest', component: ViewRequestPage},
     { path: '/u/:username', component: OverviewPage}, 
     { path: '/u/:username/:collectionName', component: CollectionPage,
     children: [
