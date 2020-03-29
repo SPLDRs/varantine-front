@@ -77,7 +77,7 @@ export default {
       padding:0;
       height:100%;
       width:100%;
-			background-color:pink;
+			background-color:white;
 		}	
 		#navbar {
 			background-color:pink;
@@ -191,7 +191,7 @@ export default {
 			height: 550px;
 			text-align: left;
 			padding-top: 70px;
-			background-color: lightskyblue;
+			background-color: pink;
       background-size: 1400px;
       background-position: center;
       background-repeat:  repeat-y;
@@ -224,7 +224,7 @@ export default {
 			padding-top: 70px;
       background-size: 1400px;
       background-position: center;
-			background-color: pink;
+			background-color: white;
 			padding-left: 0px;
       margin-bottom: 0px;
       margin-left:0px;
@@ -294,7 +294,7 @@ export default {
 			padding-top: 70px;
       background-size: 1400px;
       background-position: center;
-			background-color: pink;
+			background-color: white;
 			padding-left: 0px;
       margin-bottom: 0px;
       margin-left:0px;
@@ -478,7 +478,7 @@ export default {
         padding-top: 70px;
         background-size: 1400px;
         background-position: center;
-        background-color: pink;
+        background-color: white;
         padding-left: 0px;
         margin-bottom: 0px;
         margin-left: 0px;

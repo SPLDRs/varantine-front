@@ -6,11 +6,6 @@
             label="Full Name"
             :rules="fullNameRules"
             required></v-text-field>
-            <v-textarea
-            label="Bio"
-            auto-grow
-            v-model="user.bio"
-            ></v-textarea>
             <v-text-field v-model="user.username"
             label="Username"
             :rules="usernameRules"
@@ -37,7 +32,7 @@ export default {
         return {
             user: {
                 fullName: '',
-                bio: '',
+                //bio: '',
                 username: '',
                 password: ''
             },
