@@ -2,11 +2,10 @@
   <v-app>
     <v-app-bar app>
       <v-toolbar-title class="headline text-uppercase">
-        <span>Folds</span>
-        <span class="font-weight-light">Portfolio</span>
+        <span class="font-weight-light">Varantine</span>
       </v-toolbar-title>
       <v-toolbar-items>
-      <v-btn text to="/home">
+      <v-btn text to="/intro">
         <v-icon class="mr-2">home</v-icon>
       </v-btn>
       <v-btn text to="/login">

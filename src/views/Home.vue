@@ -1,18 +1,28 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <img alt="logo" src="../assets/logo.png">
+    <my-house/>
+    <partner-house/>
+    <user-bio :username='this.user.partnerName' :pin='this.user.partnerPin'/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import MyHouse from '@/components/MyHouse.vue';
+import PartnerHouse from '@/components/PartnerHouse.vue';
+import UserBio from '@/components/UserBio.vue';
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'home',
   components: {
-    HelloWorld
-  }
+    MyHouse,
+    PartnerHouse,
+    UserBio
+  },
+  computed: {
+        ...mapState('account', ['status', 'user']),
+    },
 }
 </script>

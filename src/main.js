@@ -7,6 +7,7 @@ import {router} from './router'
 //console.log('breakpoint');
 import {store} from './store/index.js'
 import {apiUrl} from './helpers/api-config'
+import 'material-design-icons-iconfont/dist/material-design-icons.css'
 
 Vue.config.productionTip = false
 

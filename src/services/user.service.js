@@ -10,15 +10,15 @@ export const userService = {
     register,
     getAll,
     getById,
-    getByName,
+    getByNameAndPin,
     update,
     updateAvatar,
-    addCollection,
-    deleteCollection,
-    getAllCollectionNames,
+    addHouse,
+    deleteHouse,
+    setPrimary,
+    getPrimary, 
+    getAllHouseNames,
     getUsername,
-    addBundle,
-    deleteBundle,
     initMatch,
     terminateExistingMatch,
     acceptRequest,
@@ -80,13 +80,13 @@ function getById(id) {
     return fetch(`${apiUrl}/users/${id}`, requestOptions).then(handleResponse);
 }
 
-function getByName(username) {
+function getByNameAndPin(username, pin) {
     const requestOptions = {
         method: 'GET',
         headers: authHeader()
     };
 
-    return fetch(`${apiUrl}/users/${username}`, requestOptions).then(handleResponse);
+    return fetch(`${apiUrl}/users/pin/${username}/${pin}`, requestOptions).then(handleResponse);
 }
 
 function update(user) {
@@ -124,8 +124,8 @@ function updateAvatar(id, formData) {
             //img, { url: `${BASE_URL}/images/${img.id}` })));
 }
 
-function getAllCollectionNames(){
-    const url = `${apiUrl}/users/getCollections`;
+function getAllHouseNames(){
+    const url = `${apiUrl}/users/getHouses`;
     const user = JSON.parse(localStorage.getItem('user'));
     var config = {
         headers: authHeader()
@@ -134,98 +134,81 @@ function getAllCollectionNames(){
     return axios.post(url, {id:user._id}, config)
         // get data
         .then(x => x.data)
-        .then(allCollections => {
+        .then(allHouses => {
             const user = JSON.parse(localStorage.getItem('user'));
-            user.collections = allCollections;
+            user.houses = allHouses;
             localStorage.setItem('user', JSON.stringify(user));
-            return allCollections;
+            return allHouses;
         })
 }
 
 function getUsername(){
-    //const url = `${apiUrl}/users/getCollections`;
+    //const url = `${apiUrl}/users/getHouses`;
     const user = JSON.parse(localStorage.getItem('user'));
     return user.username;
 }
 
-function addCollection(id, collection){
-    const url = `${apiUrl}/users/addCollection`;
+
+
+function addHouse(id, house){
+    const url = `${apiUrl}/users/addHouse`;
     var config = {
         headers: authHeader()
     }
     //console.log(formData);
-    return axios.post(url, {id, collection:{...collection}}, config)
+    return axios.post(url, {id, house:{...house}}, config)
         // get data
         .then(x => x.data)
-        .then(allCollections => {
+        .then(allHouses => {
             const user = JSON.parse(localStorage.getItem('user'));
-            user.collections = allCollections;
+            user.houses = allHouses;
             localStorage.setItem('user', JSON.stringify(user));
-            return allCollections;
+            return allHouses;
         })
 }
 
-function deleteCollection(collectionId){
+function deleteHouse(houseId){
     //console.log('user.service');
-    const url = `${apiUrl}/users/deleteCollection`;
+    const url = `${apiUrl}/users/deleteHouse`;
     var config = {
         headers: authHeader()
     }
     //console.log(formData);
-    return axios.post(url, {collectionId}, config)
+    return axios.post(url, {houseId}, config)
         // get data
         .then(x => x.data)
-        .then(allCollections => {
+        .then(allHouses => {
             const user = JSON.parse(localStorage.getItem('user'));
-            user.collections = allCollections;
+            user.houses = allHouses;
             localStorage.setItem('user', JSON.stringify(user));
-            return allCollections;
+            return allHouses;
+        })
+}
+function setPrimary(userId, houseId){
+    const url = `${apiUrl}/users/setPrimary`;
+    const payload = {userId, houseId};
+    var config = {
+        headers: authHeader()
+    }
+    //console.log(formData);
+    return axios.post(url, payload, config)
+        // get data
+        .then(x => x.data)
+        .then(allHouses => {
+            const user = JSON.parse(localStorage.getItem('user'));
+            user.houses = allHouses;
+            localStorage.setItem('user', JSON.stringify(user));
+            return allHouses;
         })
 }
 
-function addBundle(id, type, bundle){
-    const url = `${apiUrl}/users/addBundle`;
-    var config = {
+function getPrimary(username){
+    const requestOptions = {
+        method: 'GET',
         headers: authHeader()
-    }
-    //console.log(formData);
-    return axios.post(url, {id, type, bundle:{...bundle}}, config)
-        // get data
-        .then(x => x.data)
-        .then(allBundles => {
-            const user = JSON.parse(localStorage.getItem('user'));
-            if(type=="image"){
-                user.imageBundles = allBundles;
-            }else if(type=="text"){
-                user.textBundles = allBundles;
-            }
-            
-            localStorage.setItem('user', JSON.stringify(user));
-            return allBundles;
-        })
-}
+    };
 
-function deleteBundle(type, bundleId){
-    console.log('user.service');
-    const url = `${apiUrl}/users/deleteBundle`;
-    var config = {
-        headers: authHeader()
-    }
-    //console.log(formData);
-    return axios.post(url, {type, bundleId}, config)
-        // get data
-        .then(x => x.data)
-        .then(allBundles => {
-            const user = JSON.parse(localStorage.getItem('user'));
-            if(type=="image"){
-                user.imageBundles = allBundles;
-            }else if(type=="text"){
-                user.textBundles = allBundles;
-            }
-            
-            localStorage.setItem('user', JSON.stringify(user));
-            return allBundles;
-        })
+    return fetch(`${apiUrl}/users/getPrimary/${username}`, requestOptions).then(handleResponse);
 }
 
 function updateHelper(url, payload){

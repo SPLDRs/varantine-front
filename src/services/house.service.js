@@ -2,14 +2,15 @@
 import { authHeader } from '../helpers/index';
 import * as axios from 'axios';
 import {apiUrl} from '../helpers/api-config'
+import {logout} from './user.service'
 //console.log(authHeader);
 
-export const collectionService = {
+export const houseService = {
     getAll,
     getById,
     getByUserAndName,
     update,
-    updateBg
+    updateBg,
     //delete: _delete
 };
 
@@ -20,7 +21,7 @@ function getAll() {
         headers: authHeader()
     };
 
-    return fetch(`${apiUrl}/collections`, requestOptions).then(handleResponse);
+    return fetch(`${apiUrl}/houses`, requestOptions).then(handleResponse);
 }
 
 
@@ -30,7 +31,7 @@ function getById(id) {
         headers: authHeader()
     };
 
-    return fetch(`${apiUrl}/collections/${id}`, requestOptions).then(handleResponse);
+    return fetch(`${apiUrl}/houses/${id}`, requestOptions).then(handleResponse);
 }
 
 function getByUserAndName(username, name) {
@@ -39,21 +40,23 @@ function getByUserAndName(username, name) {
         headers: authHeader()
     };
 
-    return fetch(`${apiUrl}/collections/${username}/${name}`, requestOptions).then(handleResponse);
+    return fetch(`${apiUrl}/houses/${username}/${name}`, requestOptions).then(handleResponse);
 }
 
-function update(collection) {
+
+
+function update(house) {
     const requestOptions = {
         method: 'PUT',
         headers: { ...authHeader(), 'Content-Type': 'application/json' },
-        body: JSON.stringify(collection)
+        body: JSON.stringify(house)
     };
 
-    return fetch(`${apiUrl}/collections/${collection.id}`, requestOptions).then(handleResponse);
+    return fetch(`${apiUrl}/houses/${house.id}`, requestOptions).then(handleResponse);
 }
 
 function updateBg(id, prevBg, formData) {
-    const url = `${apiUrl}/collections/updateBg`;
+    const url = `${apiUrl}/houses/updateBg`;
     var config = {
         headers: authHeader()
     }
@@ -80,7 +83,7 @@ function updateBg(id, prevBg, formData) {
         headers: authHeader()
     };
     console.log(id);
-    return fetch(`${apiUrl}/collections/${id}`, requestOptions).then(handleResponse);
+    return fetch(`${apiUrl}/houses/${id}`, requestOptions).then(handleResponse);
 }*/
 
 function handleResponse(response) {
