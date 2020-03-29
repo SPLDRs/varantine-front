@@ -14,12 +14,12 @@
             <div class="clearfloat"></div>
 		</div>
 		<div id="intro">
-      <h1>Varantine</h1>
+      <img id="logo" src = '../assets/img/vlogo.png'>
 			<p id="p1">Connect with your special loved one; Overlap two faraway houses</p>
 			<p id="p2">Get flipped when you are at the "same" place at home</p> 
 			<div id="introbuttons">
-				<a to="/login"><div id="signup">Log In</div></a>
-				<a to="/register"><div id="signin">Register</div></a>
+				<a href=""><div id="signup">Sign Up</div></a>
+				<a href=""><div id="signin">Sign In</div></a>
 				<div class="clearfloat"></div>
 			</div>
 		</div>
@@ -114,7 +114,7 @@ export default {
       padding: 0;
     }
 		#intro {
-			height: 700px;
+			height: 750px;
 			text-align: left;
 			padding-top: 110px;
 			background-image: url('../assets/img/lovehouse.jpg');
@@ -130,6 +130,10 @@ export default {
       font-family: 'Gotu', sans-serif;
       text-align: center;
 		}
+    #logo{
+      padding-left: 100px;
+      width: 350px;
+    }
 		#introbuttons {
 			width: 500px;
 			height:50px;
@@ -355,6 +359,17 @@ export default {
         }
       }
     @media (max-width: 575px) {
+      #p1 {
+      font-size: 15pt;
+      margin-top: -30px;
+      margin-bottom: 0px;
+      font-family: 'Gotu', sans-serif;
+      text-align: center;
+      }
+      #logo{
+      padding-left: 20px;
+      width: 230px;
+      }
       .p0 {
         margin-top: 10px;
         font-size: 15pt;
