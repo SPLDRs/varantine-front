@@ -1,5 +1,6 @@
 <template>
 <v-card
+    :v-if='this.user'
     class="mx-auto"
     max-width="400"
     outlined
@@ -51,8 +52,12 @@ export default {
     methods:{
       fetchData(){
             console.log(this.username)
-            this.error = this.collection = null
+            this.error = this.user = null
             this.loading = true
+            if(!(this.username && this.pin)){
+              this.loading = false;
+              return
+            }
             userService.getByNameAndPin(this.username, this.pin).then((user) => {
                 this.loading = false;
                 this.user = user;

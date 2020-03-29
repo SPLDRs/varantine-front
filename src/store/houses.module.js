@@ -1,28 +1,27 @@
 import { houseService, userService } from '../services/index';
+import * as axios from 'axios';
+import {apiUrl} from '../helpers/api-config'
 
 const state = {
     status:{ 
         loading: false,
         updating:false,
         dirty: false},
-    all: []
+    allPlans: null
 };
 
 const actions = {
-    getAll({ commit }) {
+    getAllPlans({ commit }) {
         commit('getAllRequest');
-        userService.getAllHouseNames().then(nameList=> {
-            for (let name of nameList){
-                //console.log(userService.getUsername(), name)
-                houseService.getByUserAndName(userService.getUsername(), name)
-                .then(
-                    house => commit('addToHouses', house),
-                    error => commit('addFailure', error)
-                );
-            }
-        }).then(()=>{
-            commit('getAllFinished');
+        // Make a request for a user with a given ID
+        axios.get(apiUrl+"/houseplans.json")
+        .then(function (response) {
+            console.log(response);
+            commit('setAllPlans', response.data);
         })
+        .catch(function (error) {
+            console.log(error);
+        });
     },
     update({ dispatch, commit }, house){
         commit('updateRequest');
@@ -74,6 +73,9 @@ const mutations = {
         Object.keys(state.status).forEach(v => state.status[v] = false);
         state.status.loading = true;
         state.all=[];
+    },
+    setAllPlans(state, plans){
+        state.allPlans = plans;
     },
     getAllFinished(state) {
         state.status.loading = false;

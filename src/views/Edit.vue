@@ -1,7 +1,7 @@
 <template>
     <v-layout wrap>
       <v-flex   sm3 class="pa-2">
-        <h1>Hi {{account.user.fullName}}!</h1>
+        <h2>Hi {{account.user.fullName}}!</h2>
         <v-row align="center" justify="center">
           <v-img
             :src="account.user.avatar"
@@ -12,13 +12,6 @@
         </v-row>
         <image-upload form-title="Upload Avatar" upload-field-name = "avatar" 
         v-bind:upload-function="uploadAvatar" :id="account.user._id"></image-upload>
-        <v-form ref="form" lazy-validation>
-                <v-textarea
-                label="Bio"
-                auto-grow
-                v-model="account.user.bio" @change="setDirty"
-                ></v-textarea>
-        </v-form>
         <p>
             <v-btn to="/login">Log out</v-btn>
         </p>

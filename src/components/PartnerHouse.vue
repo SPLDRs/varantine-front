@@ -1,5 +1,6 @@
 <template>
-<v-flex xs12 sm6 md4 lg3 class="pa-2">
+<v-flex xs12 sm6 md4 lg3 class="pa-2" 
+    v-bind:style="{position: positionType, opacity: opacity, top: myCornerCoord.y+'px', left: myCornerCoord.x+'px'}">
 <p v-if="loading" class="loading">
     Loading...
 </p>
@@ -8,7 +9,12 @@
     {{ error }}
 </p>
 
-<v-img v-if=house :src='$hostname+house.housePlan'>{{house.name}}</v-img>
+<v-img v-if=house :src='$hostname+house.housePlan' ref="houseSVG">
+    <div class="marker" style = "position:absolute;" 
+    v-bind:style="{top: myLocationCoord.y+'px', left: myLocationCoord.x+'px'}">
+        <v-icon>stars</v-icon>
+    </div>
+</v-img>
 </v-flex>
 </template>
 
@@ -27,20 +33,67 @@ export default {
         //BundlePreview
     },
     props: {
-        name: String,
-        username: String,
-        updateFunction: Function,
-        deleteFunction: Function
+        //name: String,
+        //username: String,
+        location: String,
+        //updateFunction: Function,
+        //deleteFunction: Function
+        parentOffset: Object,
+        parentPoint: Object,
+        shouldOverLap: Boolean,
     },
     data () {
         return {
+            //username: '',
+            //pin: '',
+            submitted: false,
             house: null,
-            loading: false,
-            error: null
+            myLocationCoord: {x: 0, y:0},
+            //plan: null,
+            positionType: 'inherit',
+            myCornerCoord: {x: 0, y:0},
+            opacity: 1,
+        }
+    },
+    watch:{
+        location: function(val){
+            console.log("Changed selection");
+            console.log(this.plan);
+            const {name, width, height, resolution, ...rooms} = this.plan;
+            let coords = rooms[this.location].split(", ");
+            console.log(this.plan);
+            this.myLocationCoord.x = 
+                Number(coords[0])*this.$refs.houseSVG.$el.offsetWidth/this.plan.width-6;
+            this.myLocationCoord.y = 
+                Number(coords[1])*this.$refs.houseSVG.$el.offsetHeight/this.plan.height-6;
+            console.log(Number(coords[0]));
+            //console.log(this.$refs.houseSVG);
+            console.log(this.$refs.houseSVG.$el.offsetWidth);
+            console.log(this.plan.width);
+            console.log(this.myLocationCoord.x);
+        },
+        shouldOverLap: function(should){
+            console.log("should overlap?"+should)
+            if (should){
+                let anchor = this.parentPoint;
+                let b = this.myLocationCoord;
+                this.myCornerCoord.x = anchor.x-b.x;
+                this.myCornerCoord.y = anchor.y-b.y;
+                this.opacity = 0.7;
+                this.positionType="absolute";
+            }else{
+                this.opacity = 1;
+                this.myCornerCoord={x: 0, y:0}
+                this.positionType="inherit";
+            }
         }
     },
     computed: {
         ...mapState('account', ['status', 'user']),
+        ...mapState('houses', ['allPlans']),
+        plan: function(){
+            return this.allPlans.find(o => o.name === this.house.housePlanName);
+        },
     },
     created () {
         // reset login status
@@ -57,6 +110,11 @@ export default {
                 this.loading = false;
                 return
             }
+            let username = this.user.username;
+            let BName = this.user.partnerName; 
+            let roomname = username>BName? username+"-"+BName: BName+"-"+username;
+
+            this.$socket.client.emit("room", roomname); 
             userService.getPrimary(this.user.partnerName).then((houseName) => {
                 houseService.getByUserAndName(this.user.partnerName, houseName).then((house) => {
                     this.loading = false;

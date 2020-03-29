@@ -14,5 +14,12 @@ export const store = new Vuex.Store({
         account,
         users,
         houses
-    }
+    },
+    state: {},
+    actions: {
+        socket_newLocation({commit}, position) {
+            console.log(position)
+        }
+    },
+
 });

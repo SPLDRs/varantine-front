@@ -20,7 +20,7 @@ const actions = {
             .then(
                 user => {
                     commit('loginSuccess', user);
-                    router.push('/intro');
+                    router.push('/');
                 },
                 error => {
                     commit('loginFailure', error);
@@ -54,6 +54,7 @@ const actions = {
     },
     update({ dispatch, commit }){
         commit('updateRequest');
+        console.log(state.user);
         return userService.update(state.user)
         .then(
             user => {
@@ -99,7 +100,7 @@ const actions = {
                     commit('updateSuccess');
                     //router.push('/login');
                     dispatch('alert/success', 'Add house successful.', { root: true });
-                    dispatch('houses/getAll', null, { root: true });
+                    //dispatch('houses/getAll', null, { root: true });
                     return new Promise(function(resolve, reject) {
                         resolve(houses);
                     });
@@ -213,6 +214,11 @@ const actions = {
                 }
             );
     },
+    
+    socket_joinRoom({dispatch, commit}, room){
+        this._vm.$socket.client.emit("room", {room})
+    },
+
     declineRequest({ dispatch, commit }) {
         const id = state.user._id;
         return userService.declineRequest(id)

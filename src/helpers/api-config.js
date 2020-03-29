@@ -1,5 +1,1 @@
-const port = 4000;
-
-const ip = '127.0.0.1';
-
-export const apiUrl = 'http://' + ip + ':' + port;
+export const apiUrl = 'http://' + "ec2-34-208-42-160.us-west-2.compute.amazonaws.com:4005";
