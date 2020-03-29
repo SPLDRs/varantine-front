@@ -57,6 +57,11 @@ export default {
                 this.loading = false;
                 return
             }
+            let username = this.user.username;
+            let BName = this.user.partnerName; 
+            let roomname = username>BName? username+"-"+BName: BName+"-"+username;
+
+            this.$socket.client.emit("room", roomname); 
             userService.getPrimary(this.user.partnerName).then((houseName) => {
                 houseService.getByUserAndName(this.user.partnerName, houseName).then((house) => {
                     this.loading = false;

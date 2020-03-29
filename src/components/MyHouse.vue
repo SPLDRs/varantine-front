@@ -10,9 +10,9 @@
 
 <v-img v-if=house :src='$hostname+house.housePlan'>{{house.name}}</v-img>
 
-<p>{{location}}</p>
-<v-text-field v-model="targetId"
-    label="Target ID"
+<p>{{partnerLocation}}</p>
+<v-text-field v-model="myLocation"
+    label="My Location"
     required>
 </v-text-field>
 <v-btn @click="pingServer">Ping</v-btn>
@@ -34,18 +34,8 @@ export default {
             pin: '',
             submitted: false,
             house: null,
-            polygon: [
-            { lat: 6.436914, lng: 3.451432 },
-            { lat: 6.436019, lng: 3.450917 },
-            { lat: 6.436584, lng: 3.450917 },
-            { lat: 6.435006, lng: 3.450928 },
-            { lat: 6.434953, lng: 3.451808 },
-            { lat: 6.435251, lng: 3.451765 },
-            { lat: 6.435262, lng: 3.451969 },
-            { lat: 6.435518, lng: 3.451958 }
-          ],
-          location: '',
-          targetId: null
+            myLocation: null,
+            partnerLocation: null, 
         }
     },
     computed: {
@@ -59,12 +49,11 @@ export default {
     methods: {
         //...mapActions('account', []),
         pingServer(){
-            console.log("ping in pingServer")
-            this.$socket.client.emit("stupid", this.targetId); 
-            this.$socket.$subscribe('newLocation', payload => {
-                console.log("Subscribe to newLocation "+this.$socket.client.id);
-                this.location = {...payload, id:this.$socket.client.id};
-            });
+            console.log("ping in pingServer");
+            let username = this.user.username;
+            let BName = this.user.partnerName; 
+            let roomname = username>BName? username+"-"+BName: BName+"-"+username;
+            this.$socket.client.emit("pinLocation", {location:this.myLocation, room: roomname}); 
         },
 
         fetchData(){
@@ -93,9 +82,9 @@ export default {
         connect(){
           console.log('connected');
         },
-        newLocation(position) {
-          this.location = {...position, id:this.$socket.client.id}
-          console.log("newLocation in MyHouse")
+        partnerLocation(data) {
+          this.partnerLocation = data.location;
+          console.log("partnerLocation in MyHouse")
         }
     },
 

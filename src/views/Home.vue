@@ -1,6 +1,10 @@
 <template>
   <div class="home">
     <img alt="logo" src="../assets/logo.png">
+    <v-btn to="/generatePin">Generate Pin</v-btn>
+    <v-btn to="/initMatch">Init Match</v-btn>
+    <v-btn to="/viewRequest">View Request</v-btn>
+    <p :v-if=this.user.pin>Current pin: {{user.pin}}</p>
     <my-house/>
     <partner-house/>
     <user-bio :username='this.user.partnerName' :pin='this.user.partnerPin'/>

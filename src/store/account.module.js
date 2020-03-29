@@ -54,6 +54,7 @@ const actions = {
     },
     update({ dispatch, commit }){
         commit('updateRequest');
+        console.log(state.user);
         return userService.update(state.user)
         .then(
             user => {
@@ -213,6 +214,11 @@ const actions = {
                 }
             );
     },
+    
+    socket_joinRoom({dispatch, commit}, room){
+        this._vm.$socket.client.emit("room", {room})
+    },
+
     declineRequest({ dispatch, commit }) {
         const id = state.user._id;
         return userService.declineRequest(id)

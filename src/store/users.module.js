@@ -23,7 +23,9 @@ const actions = {
                 user => commit('deleteSuccess', id),
                 error => commit('deleteFailure', { id, error: error.toString() })
             );
-    }
+    },
+
+    
 };
 
 const mutations = {
