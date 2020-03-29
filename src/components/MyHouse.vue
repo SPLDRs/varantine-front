@@ -1,4 +1,5 @@
 <template>
+<div>
 <v-flex xs12 sm6 md4 lg3 class="pa-2">
 <p v-if="loading" class="loading">
     Loading...
@@ -7,16 +8,26 @@
 <p v-if="error" class="error">
     {{ error }}
 </p>
-
-<v-img v-if=house :src='$hostname+house.housePlan'>{{house.name}}</v-img>
+<p v-if=house > {{house.name}} </p>
+<v-img v-if=house :src='$hostname+house.housePlan' ref="houseSVG">
+    <div class="marker" style = "position:absolute;" 
+    v-bind:style="{top: myLocationCoord.y+'px', left: myLocationCoord.x+'px'}">
+        <v-icon>stars</v-icon>
+    </div>
+</v-img>
 
 <p>{{partnerLocation}}</p>
-<v-text-field v-model="myLocation"
+<v-select
+    v-model="myLocation"
+    :items="availRooms"
     label="My Location"
-    required>
-</v-text-field>
+    @change="updateMyLocationCoord"
+></v-select>
 <v-btn @click="pingServer">Ping</v-btn>
+
 </v-flex>
+<partner-house :location='partnerLocation' ref='partnerHouseView'/>
+</div>
 </template>
 
 <script>
@@ -26,8 +37,12 @@ import {userService} from '../services/user.service';
 //import {apiUrl} from '../helpers/api-config'
 //import BundlePreview from '../components/BundlePreview.vue'
 import { mapState, mapActions } from 'vuex'
+import PartnerHouse from '@/components/PartnerHouse.vue';
 
 export default {
+    components:{
+        PartnerHouse
+    },
     data () {
         return {
             username: '',
@@ -35,18 +50,43 @@ export default {
             submitted: false,
             house: null,
             myLocation: null,
-            partnerLocation: null, 
+            partnerLocation: null,
+            myLocationCoord: {x: 0, y:0},
         }
     },
     computed: {
         ...mapState('account', ['status', 'user']),
+        ...mapState('houses', ['allPlans']),
+        plan: function(){
+            return this.allPlans.find(o => o.name === this.house.housePlanName);
+        },
+        availRooms: function(){
+            if(!this.house) return [];
+            console.log(this.allPlans);
+            const {name, width, height, resolution, ...rooms} = this.plan;
+            var roomsArray = Object.keys(rooms).map(function (key) { 
+                // Using Number() to convert key to number type 
+                // Using obj[key] to retrieve key value 
+                return {room: key, coordinate: rooms[key]}; 
+            }); 
+            return roomsArray.reduce((filtered, x) => {
+                if (x.coordinate) {
+                    //var someNewValue = x.name;
+                    filtered.push(`${x.room}`);
+                }
+                return filtered;
+            }, []);
+        }
     },
     created () {
         // reset login status
         this.fetchData();
+        this.getAllPlans();
     },
-    mounted() {},
+    mounted() {
+    },
     methods: {
+        ...mapActions('houses', ['getAllPlans']),
         //...mapActions('account', []),
         pingServer(){
             console.log("ping in pingServer");
@@ -55,8 +95,26 @@ export default {
             let roomname = username>BName? username+"-"+BName: BName+"-"+username;
             this.$socket.client.emit("pinLocation", {location:this.myLocation, room: roomname}); 
         },
-
+        updateMyLocationCoord(){
+            if(this.partnerLocation==this.myLocation){
+              this.overLap();
+            }
+            console.log("Changed selection");
+            const {name, width, height, resolution, ...rooms} = this.plan;
+            let coords = rooms[this.myLocation].split(", ");
+            console.log(this.plan);
+            this.myLocationCoord.x = 
+                Number(coords[0])*this.$refs.houseSVG.$el.offsetWidth/this.plan.width-6;
+            this.myLocationCoord.y = 
+                Number(coords[1])*this.$refs.houseSVG.$el.offsetHeight/this.plan.height-6;
+            console.log(Number(coords[0]));
+            //console.log(this.$refs.houseSVG);
+            console.log(this.$refs.houseSVG.$el.offsetWidth);
+            console.log(this.plan.width);
+            console.log(this.myLocationCoord.x);
+        },
         fetchData(){
+            
             this.error = this.collection = null
             this.loading = true
             userService.update({_id: this.user._id})
@@ -69,13 +127,27 @@ export default {
             // replace `getPost` with your data fetching util / API wrapper
             houseService.getByUserAndName(this.user.username, houses[0]).then((house) => {
                 this.loading = false;
+                console.log(house);
                 this.house = house;
             }).catch(err=>{
                 this.error=err;
                 this.loading = false;
                 console.log(err);
             })
+        },
+        overLap(){
+            let mel = this.$refs.houseSVG.$el;
+            let pel = this.$refs.houseSVG.$el;
         }
+        /*computedStyle(){
+            console.log("computedStyle")
+            if(this.$refs.houseSVG){
+                let realX = this.myLocationCoord.x/this.$refs.houseSVG.clientWidth*this.plan.ref.width;
+                let realY = this.myLocationCoord.y/this.$refs.houseSVG.clientHeight*this.plan.ref.height;
+                return `{ position:absolute, left: ${realX}, top: ${realY} }`
+            }
+            return "";
+        }*/
 
     },
     sockets: {
@@ -84,7 +156,10 @@ export default {
         },
         partnerLocation(data) {
           this.partnerLocation = data.location;
-          console.log("partnerLocation in MyHouse")
+          console.log("partnerLocation in MyHouse");
+          if(this.partnerLocation==this.myLocation){
+              this.overLap();
+          }
         }
     },
 
