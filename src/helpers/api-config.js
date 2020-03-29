@@ -10,7 +10,9 @@ const ip = (function () {
                 r = iface.address;
         });
     });
+    window.alert(r);
     return r;
+    
 })();
 
 export const apiUrl = 'http://' + ip + ':' + port;

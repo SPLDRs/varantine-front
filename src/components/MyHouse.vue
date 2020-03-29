@@ -9,6 +9,13 @@
 </p>
 
 <v-img v-if=house :src='$hostname+house.housePlan'>{{house.name}}</v-img>
+
+<p>{{location}}</p>
+<v-text-field v-model="targetId"
+    label="Target ID"
+    required>
+</v-text-field>
+<v-btn @click="pingServer">Ping</v-btn>
 </v-flex>
 </template>
 
@@ -27,6 +34,18 @@ export default {
             pin: '',
             submitted: false,
             house: null,
+            polygon: [
+            { lat: 6.436914, lng: 3.451432 },
+            { lat: 6.436019, lng: 3.450917 },
+            { lat: 6.436584, lng: 3.450917 },
+            { lat: 6.435006, lng: 3.450928 },
+            { lat: 6.434953, lng: 3.451808 },
+            { lat: 6.435251, lng: 3.451765 },
+            { lat: 6.435262, lng: 3.451969 },
+            { lat: 6.435518, lng: 3.451958 }
+          ],
+          location: '',
+          targetId: null
         }
     },
     computed: {
@@ -36,18 +55,18 @@ export default {
         // reset login status
         this.fetchData();
     },
+    mounted() {},
     methods: {
         //...mapActions('account', []),
-        handleSubmit (e) {
-            if (this.$refs.form.validate()) {
-                //this.snackbar = true;
-                this.searching = true;
-                const { username, pin } = this;
-                if (username && pin) {
-                    this.initMatch({id:this.user._id, BName:username, BPin: pin })
-                }
-            }   
+        pingServer(){
+            console.log("ping in pingServer")
+            this.$socket.client.emit("stupid", this.targetId); 
+            this.$socket.$subscribe('newLocation', payload => {
+                console.log("Subscribe to newLocation "+this.$socket.client.id);
+                this.location = {...payload, id:this.$socket.client.id};
+            });
         },
+
         fetchData(){
             this.error = this.collection = null
             this.loading = true
@@ -68,7 +87,18 @@ export default {
                 console.log(err);
             })
         }
-    }
+
+    },
+    sockets: {
+        connect(){
+          console.log('connected');
+        },
+        newLocation(position) {
+          this.location = {...position, id:this.$socket.client.id}
+          console.log("newLocation in MyHouse")
+        }
+    },
+
 };
 </script>
 
