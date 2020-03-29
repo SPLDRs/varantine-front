@@ -1,3 +1,5 @@
+const port = 4000;
+
 const ip = (function () {
     const interfaces = require('os').networkInterfaces();
     let keys = Object.keys(interfaces);
@@ -18,6 +20,6 @@ console.log('============================');
 
 const fs = require('fs');
 const api_js_path = __dirname + '/api-config.js';
-let f = fs.readFileSync(api_js_path, 'utf8');
-f = f.replace(/ip *= *'[^']*'/mg, "ip = '" + ip + "'");
-fs.writeFileSync(api_js_path, f);
+// let f = fs.readFileSync(api_js_path, 'utf8');
+// f = f.replace(/ip *= *'[^']*'/mg, "ip = '" + ip + "'");
+fs.writeFileSync(api_js_path, 'export const apiUrl = "http://' + ip + ':' + port + '";');
