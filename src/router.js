@@ -96,6 +96,7 @@ export const router = new Router({
     { path: '/generatePin', component: GeneratePinPage},
     { path: '/viewRequest', component: ViewRequestPage},
     { path: '*', redirect: '/intro' }
+    
   ]
 })
 

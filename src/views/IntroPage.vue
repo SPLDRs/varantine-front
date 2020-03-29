@@ -196,7 +196,7 @@ export default {
       background-position: center;
       background-repeat:  repeat-y;
       margin-bottom: 0px;
-      width: 80%;
+      width: 100%;
       padding-left: 10%;
       padding-right: 10%;
       }
