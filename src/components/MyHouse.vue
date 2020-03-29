@@ -1,5 +1,5 @@
 <template>
-<div>
+<div style="position:relative;">
 <v-flex xs12 sm6 md4 lg3 class="pa-2">
 <p v-if="loading" class="loading">
     Loading...
@@ -8,7 +8,7 @@
 <p v-if="error" class="error">
     {{ error }}
 </p>
-<p v-if=house > {{house.name}} </p>
+
 <v-img v-if=house :src='$hostname+house.housePlan' ref="houseSVG">
     <div class="marker" style = "position:absolute;" 
     v-bind:style="{top: myLocationCoord.y+'px', left: myLocationCoord.x+'px'}">
@@ -16,6 +16,7 @@
     </div>
 </v-img>
 
+<p v-if=house > @{{house.name}} </p>
 <p>{{partnerLocation}}</p>
 <v-select
     v-model="myLocation"
@@ -26,7 +27,10 @@
 <v-btn @click="pingServer">Ping</v-btn>
 
 </v-flex>
-<partner-house :location='partnerLocation' ref='partnerHouseView'/>
+<partner-house :location='partnerLocation' ref='partnerHouseView' 
+:parentOffset='parentOffset'
+ :parentPoint='myLocationCoord'
+ :shouldOverLap='shouldOverLap'/>
 </div>
 </template>
 
@@ -52,6 +56,7 @@ export default {
             myLocation: null,
             partnerLocation: null,
             myLocationCoord: {x: 0, y:0},
+            shouldOverLap: false
         }
     },
     computed: {
@@ -76,7 +81,17 @@ export default {
                 }
                 return filtered;
             }, []);
+        },
+        parentOffset: function(){
+            if(!this.$refs.houseSVG) return null;
+            return {
+                width: this.$refs.houseSVG.$el.offsetWidth,
+                height: this.$refs.houseSVG.$el.offsetHeight,
+                top: this.$refs.houseSVG.$el.offsetTop,
+                left:this.$refs.houseSVG.$el.offsetLeft,
         }
+        },
+
     },
     created () {
         // reset login status
@@ -97,7 +112,10 @@ export default {
         },
         updateMyLocationCoord(){
             if(this.partnerLocation==this.myLocation){
-              this.overLap();
+                console.log("shouldOverLap(");
+              this.shouldOverLap=true;
+            }else{
+                this.shouldOverLap=false;
             }
             console.log("Changed selection");
             const {name, width, height, resolution, ...rooms} = this.plan;
@@ -135,10 +153,6 @@ export default {
                 console.log(err);
             })
         },
-        overLap(){
-            let mel = this.$refs.houseSVG.$el;
-            let pel = this.$refs.houseSVG.$el;
-        }
         /*computedStyle(){
             console.log("computedStyle")
             if(this.$refs.houseSVG){
@@ -158,12 +172,15 @@ export default {
           this.partnerLocation = data.location;
           console.log("partnerLocation in MyHouse");
           if(this.partnerLocation==this.myLocation){
-              this.overLap();
-          }
+                console.log("shouldOverLap(");
+              this.shouldOverLap=true;
+            }else{
+                this.shouldOverLap=false;
+            }
         }
     },
-
 };
+
 </script>
 
 <style scoped>

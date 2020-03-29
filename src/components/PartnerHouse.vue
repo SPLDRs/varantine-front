@@ -1,5 +1,6 @@
 <template>
-<v-flex xs12 sm6 md4 lg3 class="pa-2">
+<v-flex xs12 sm6 md4 lg3 class="pa-2" 
+    v-bind:style="{position: positionType, opacity: opacity, top: myCornerCoord.y+'px', left: myCornerCoord.x+'px'}">
 <p v-if="loading" class="loading">
     Loading...
 </p>
@@ -37,6 +38,9 @@ export default {
         location: String,
         //updateFunction: Function,
         //deleteFunction: Function
+        parentOffset: Object,
+        parentPoint: Object,
+        shouldOverLap: Boolean,
     },
     data () {
         return {
@@ -46,6 +50,9 @@ export default {
             house: null,
             myLocationCoord: {x: 0, y:0},
             //plan: null,
+            positionType: 'inherit',
+            myCornerCoord: {x: 0, y:0},
+            opacity: 1,
         }
     },
     watch:{
@@ -64,6 +71,21 @@ export default {
             console.log(this.$refs.houseSVG.$el.offsetWidth);
             console.log(this.plan.width);
             console.log(this.myLocationCoord.x);
+        },
+        shouldOverLap: function(should){
+            console.log("should overlap?"+should)
+            if (should){
+                let anchor = this.parentPoint;
+                let b = this.myLocationCoord;
+                this.myCornerCoord.x = anchor.x-b.x;
+                this.myCornerCoord.y = anchor.y-b.y;
+                this.opacity = 0.7;
+                this.positionType="absolute";
+            }else{
+                this.opacity = 1;
+                this.myCornerCoord={x: 0, y:0}
+                this.positionType="inherit";
+            }
         }
     },
     computed: {
