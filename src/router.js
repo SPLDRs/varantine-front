@@ -4,17 +4,10 @@ import IntroPage from './views/IntroPage.vue'
 import LoginPage from './views/Login.vue'
 import RegisterPage from './views/Register.vue'
 import EditPage from './views/Edit.vue'
-import OverviewPage from './views/Overview.vue'
 import HomePage from './views/Home.vue'
-import CollectionPage from './views/Collection.vue'
 import InitMatchPage from './views/InitMatch.vue'
 import GeneratePinPage from './views/GeneratePin.vue'
 import ViewRequestPage from './views/ViewRequest.vue'
-import EditCollection from './views/EditCollection.vue'
-import EditTextBundle from './views/EditTextBundle.vue'
-import EditImageBundle from './views/EditImageBundle.vue'
-import TextBundle from './views/TextBundle.vue'
-import ImageBundle from './views/ImageBundle.vue'
 
 Vue.use(Router)
 
@@ -102,23 +95,7 @@ export const router = new Router({
     { path: '/initMatch', component: InitMatchPage},
     { path: '/generatePin', component: GeneratePinPage},
     { path: '/viewRequest', component: ViewRequestPage},
-    { path: '/u/:username', component: OverviewPage}, 
-    { path: '/u/:username/:collectionName', component: CollectionPage,
-    children: [
-      {
-        path: 'text/:bundleId',
-        component: TextBundle, meta: {scrollToBundle: true}
-      },
-      {
-        path: 'image/:bundleId',
-        component: ImageBundle, meta: {scrollToBundle: true}
-      }]
-    },
-    { path: '/editCollection/:collectionName', component: EditCollection},
-    { path: '/editBundle/text/:bundleId', component: EditTextBundle},
-    { path: '/editBundle/image/:bundleId', component: EditImageBundle},
-    // otherwise redirect to home
-    { path: '*', redirect: '/' }
+    { path: '*', redirect: '/intro' }
   ]
 })
 

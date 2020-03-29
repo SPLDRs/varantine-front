@@ -1,35 +1,41 @@
-import { bundleService, userService } from '../services/index';
+import { houseService, userService } from '../services/index';
 
 const state = {
     status:{ 
         loading: false,
         updating:false,
         dirty: false},
-    bundle: null
+    all: []
 };
 
 const actions = {
-    getByTypeAndId({ commit }, {id, type}) {
-        console.log('get current bundle');
+    getAll({ commit }) {
         commit('getAllRequest');
-        bundleService.getByTypeAndId(type, id).then(bundle=> {
-            commit('getCurrentBundle', bundle);
+        userService.getAllHouseNames().then(nameList=> {
+            for (let name of nameList){
+                //console.log(userService.getUsername(), name)
+                houseService.getByUserAndName(userService.getUsername(), name)
+                .then(
+                    house => commit('addToHouses', house),
+                    error => commit('addFailure', error)
+                );
+            }
         }).then(()=>{
             commit('getAllFinished');
         })
     },
-    update({ dispatch, commit }, {type, bundle}){
+    update({ dispatch, commit }, house){
         commit('updateRequest');
-        return bundleService.update(type, bundle)
+        return houseService.update(house)
         .then(
-            bundle => {
+            house => {
                 commit('updateSuccess');
                 //dispatch('account/update')
                 //router.push('/login');
                 commit('setClean');
-                dispatch('alert/success', 'Update bundle successful.', { root: true });
+                dispatch('alert/success', 'Update house successful.', { root: true });
                 return new Promise(function(resolve, reject) {
-                    resolve(bundle);
+                    resolve(house);
                 });
             },
             error => {
@@ -38,17 +44,17 @@ const actions = {
             }
         );
     },
-    updateImage({ dispatch, commit }, {id, prevPath, formData}) {
+    updateBg({ dispatch, commit }, {id, prevPath, formData}) {
         commit('updateRequest');
-        //console.log('bundle module');
-        return bundleService.updateImage(id, prevPath, formData)
+        //console.log('house module');
+        return houseService.updateBg(id, prevPath, formData)
             .then(
                 imagePath => {
                     commit('updateSuccess');
                     //router.push('/login');
-                    dispatch('alert/success', 'Update Image successful.', { root: true });
+                    dispatch('alert/success', 'Update Background Image successful.', { root: true });
 
-                    commit('updateBundleImage', {id, imagePath:imagePath.path});
+                    commit('updateHouseBg', {id, imagePath:imagePath.path});
                     //commit('setDirty');
                     return new Promise(function(resolve, reject) {
                         resolve(imagePath);
@@ -67,13 +73,16 @@ const mutations = {
     getAllRequest(state) {
         Object.keys(state.status).forEach(v => state.status[v] = false);
         state.status.loading = true;
-        state.bundle = null;
+        state.all=[];
     },
     getAllFinished(state) {
         state.status.loading = false;
     },
-    getCurrentBundle(state, bundle) {
-        state.bundle=bundle;
+    addToHouses(state, house) {
+        state.all.push(house);
+    },
+    addFailure(state, error) {
+        state.status.error = error;
     },
     updateRequest(state){
         //Object.keys(state.status).forEach(v => state.status[v] = false);
@@ -92,19 +101,24 @@ const mutations = {
         //state.status.loggedIn = true;
     },
     setDirty(state){
-        console.log("bundle dirty");
+        console.log("house dirty");
         state.status.dirty = true;
     },
     setClean(state){
-        console.log("bundle clean");
+        console.log("house clean");
         state.status.dirty = false;
     },
-    updateBundleImage(state, info){
-        state.bundle.image = info.imagePath;  
+    updateHouseBg(state, info){
+        for (let house of state.all){
+            if(house._id===info.id){
+                house.bg = info.imagePath;
+                break;
+            }
+        }
     }
 };
 
-export const bundles = {
+export const houses = {
     namespaced: true,
     state,
     actions,
