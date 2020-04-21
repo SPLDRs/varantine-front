@@ -1,5 +1,3 @@
-.DS_Store
-node_modules
 /dist
 
 # local env files
@@ -24,3 +22,17 @@ yarn-error.log*
 /src-cordova/platforms
 /src-cordova/plugins
 /public/cordova.js
+
+# gitignore from GitHub
+.DS_Store
+Thumbs.db
+db.json
+*.log
+node_modules/
+public/
+.deploy*/
+src/_drafts
+package-lock.json
+
+# Replaced by get_ip.js
+/src/helpers/api-config.js

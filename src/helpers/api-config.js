@@ -1,1 +1,0 @@
-export const apiUrl = 'http://' + "ec2-34-208-42-160.us-west-2.compute.amazonaws.com:4005";
